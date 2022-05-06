@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <title>ThermoLink</title>
+        <link rel="stylesheet" href="../css/alert.css">
+        <script src="https://unpkg.com/vue@next"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    </head>
+    <body>
+        <header>
+            <div class="menu-list">
+              <a class="menu-item menu-measurement" href="../html/home.html">測定</a>
+              <a class="menu-item menu-plan" href="../html/plan.html">お申込プラン</a>
+              <a class="menu-item menu-device" href="../html/device.html">デバイス管理</a>
+              <a class="menu-item menu-alert" href="../html/alert.html">アラート設定</a>
+              <a class="menu-item menu-payment" href="../html/payment.html">お支払い情報</a>
+              <a class="menu-item menu-userinfo" href="../html/userinfo.html">ユーザ情報</a>
+              <a class="menu-item menu-contact" href="../html/contact.html">お問い合わせ</a>
+            </div>
+        </header>
+        <main>
+          <div class="alert-mail-container">
+            <p class="notify-title-item notify-mail-title">通知先メールアドレス</p>
+            <input class="notify-mail-input" type="email">
+            <input type="checkbox" id="same-mail-checkbox">
+            <label class="notify-mail-label" for="same-mail-checkbox">ユーザ情報に登録されているメールアドレスと同じ</label>
+          </div>
+          <div class="alert-notify-setting">
+            <p class="notify-title-item notify-setting-title">通知設定</p>
+            <div class="notify-setting-component">
+              <div class="upper-limit-notify">
+                <p class="notify-limit-title-item">上限を超えたときにメールで通知する</p>
+                <input type="radio" name="upper-limit"><span class="select-limit-notify">はい</span>
+                <input class="select-limit-notify" type="radio" name="upper-limit" checked><span class="select-limit-notify">いいえ</span>
+              </div>
+              <div class="lower-limit-notify">
+                <p class="notify-limit-title-item">下限を超えたときにメールで通知する</p>
+                <input class="select-limit-notify" type="radio" name="lower-limit"><span class="select-limit-notify">はい</span>
+                <input class="select-limit-notify" type="radio" name="lower-limit" checked><span class="select-limit-notify">いいえ</span>
+              </div>
+            </div>
+          </div>
+          <a class="save-button" href="#" onclick="">保存</a>
+        </main>
+        <footer>
+
+        </footer>
+        <script>
+
+        </script>
+    </body>
+</html>

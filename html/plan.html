@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <title>ThermoLink</title>
+        <link rel="stylesheet" href="../css/plan.css">
+        <script src="https://unpkg.com/vue@next"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    </head>
+    <body>
+        <header>
+            <div class="menu-list">
+                <a class="menu-item menu-measurement" href="../html/home.html">測定</a>
+                <a class="menu-item menu-plan" href="../html/plan.html">お申込プラン</a>
+                <a class="menu-item menu-device" href="../html/device.html">デバイス管理</a>
+                <a class="menu-item menu-alert" href="../html/alert.html">アラート設定</a>
+                <a class="menu-item menu-payment" href="../html/payment.html">お支払い情報</a>
+                <a class="menu-item menu-userinfo" href="../html/userinfo.html">ユーザ情報</a>
+                <a class="menu-item menu-contact" href="../html/contact.html">お問い合わせ</a>
+            </div>
+        </header>
+
+        <!-- modal -->
+        <div class="plan-modal-wrapper" id="new-plan-modal">
+            <div class="modal">
+                <div class="modal-header">
+                    <p>プラン選択</p>
+                    
+                </div>
+                <div>
+                    <input class="plan-radiobutton" type="radio" name="plan" value="pln-001" checked>プランA
+                    <div class="plan-image"></div>
+                    <input class="plan-radiobutton" type="radio" name="plan" value="pln-002">プランB
+                    <div class="plan-image"></div>
+                    <input class="plan-radiobutton" type="radio" name="plan" value="pln-003">プランC
+                    <div class="plan-image"></div>
+                    <button class="ask-plan-button" onclick="confirmPlan()">お申し込み</button>
+                </div>
+            </div>
+            <div class="close-modal" id="close-modal" onclick="closeModal()"></div>
+        </div>
+        
+
+        <main>
+            <div class="plan-container" id="plan-container">
+                <p class="title">お申込内容</p>
+                <!-- plan area -->
+                <!-- dynamically read plan -->
+            </div>
+            <div class="add-plan-container">
+                <button class="add-plan-button" onclick="addNewPlan()">+ 新規プラン</button>
+            </div>
+        </main>
+        <footer>
+
+        </footer>
+        <script>
+            var contracts = [];
+            var numberOfPlan = 2;
+            var planID = [];
+            var userID = "/usr-1234";
+            var contractData = [];
+            const contractBaseUrl = "https://i2lk5v5yvi.execute-api.ap-northeast-1.amazonaws.com/items"
+
+            init();
+
+            function init() {
+                read_contract();
+            }
+
+            function read_contract () {
+                var request = new XMLHttpRequest();
+                request.open('GET', contractBaseUrl + userID);
+                request.onload = () => {
+                    var jsonObj = JSON.parse(request.responseText);
+                    // extract contract json object
+                    contractData = jsonObj.Items;
+                    console.log(contractData);
+                    numberOfPlan = contractData.length;
+                    create_planComponent();
+                }
+                request.send();
+            }
+
+            function create_planComponent () {
+                var planContainer = document.getElementById('plan-container');
+                for(let n = 0; n < numberOfPlan; n++) {
+                    var planComponent = document.createElement('div');
+                    planComponent.setAttribute('class', 'plan-component');
+                    planComponent.setAttribute('id', `plan-component${n}`);
+                    planComponent.innerHTML = `
+                        <div class="plan-item-container">
+                            <p class="plan-item plan-item-title plan-name-title">プラン</p>
+                            <p class="plan-item plan-item-value zplan-name-value">${contractData[n].planID}</p>
+                        </div>
+                        <div class="plan-item-container">
+                            <p class="plan-item plan-item-title plan-status-title">ステータス</p>
+                            <p class="plan-item plan-item-value plan-status-value">${contractData[n].status}</p>
+                        </div>
+                        <div class="plan-item-container">
+                            <p class="plan-item plan-item-title plan-date-title">お申込年月日</p>
+                            <p class="plan-item plan-item-value plan-date-value">${contractData[n].date}</p>
+                        </div>
+                        <div class="plan-item-container">
+                            <button class="plan-button">解約する</button>
+                        </div>
+                        `;
+                    planID.push(`plan-component${n}`);
+                    planContainer.appendChild(planComponent);
+                }
+            }
+
+            function addNewPlan() {
+                $('#new-plan-modal').fadeIn();
+            }
+            
+            function closeModal() {
+                $('#new-plan-modal').fadeOut();
+            }
+
+            function confirmPlan() {
+                if(confirm('プランを申し込みますか？（確認）')) {
+                    var body = {};
+                    
+                    // set parameters
+                    body.contractID = "ct-1238";
+                    body.userID = "usr-1234";
+                    body.planID = "pl-004";
+                    body.status = "asking";
+                    
+                    
+                    var request = new XMLHttpRequest();
+                    request.open('PUT', contractBaseUrl);
+                    request.setRequestHeader("Content-Type", "application/json");
+                    var jsonObj = JSON.stringify(body);
+
+                    request.onload = () => {
+                        alert('お申し込みありがとうございました。お申し込み内容はメニューの「お申込プラン」からご確認いただけます。');
+
+                        var planContainer = document.getElementById('plan-container');
+
+                        for(let n=0; n < numberOfPlan; n++) {
+                            planContainer.removeChild(planContainer.lastChild);
+                        }
+                        read_contract();
+                        closeModal();
+                    }
+                    request.send(jsonObj);
+
+                }
+            }
+        </script>
+    </body>
+</html>

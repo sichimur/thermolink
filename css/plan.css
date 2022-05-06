@@ -1,0 +1,176 @@
+* {
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* header */
+header {
+    background-color: rgba(34, 49, 52, 0.9);
+    width: 160px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+
+.menu-item {
+    display: block;
+    height: 80px;
+    width: 100%;
+    line-height: 80px;
+    color: white;
+    float: left;
+    text-decoration: none;
+    transition: all 0.5s;
+    text-align: center;
+}
+
+.menu-item:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.menu-plan {
+    font-weight: bold;
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* main */
+main {
+    background-color:white;
+    margin-left: 160px;
+    padding: 12px;
+}
+
+.title {
+    display: block;
+    font-size: 14px;
+}
+
+.plan-component {
+    margin-top: 8px;
+    margin-bottom: 4px;
+    position: relative;
+    background-color: #F6F6F6;
+    height: 100px;
+    width: 100%;
+    border-radius: 4px;
+    padding: 4px;
+    border: 1px solid #979797;
+    /* box-shadow: 2px 2px #979797; */
+}
+
+.plan-item-container {
+    position: relative;
+    width: 100%;
+    height: 20px;
+    margin-top: 2px;
+}
+
+.plan-item {
+    display: inline-block;
+    width: 50%;
+    height: 20px;
+    float: left;
+    font-size: 14px;
+    margin: 0px;
+}
+
+.plan-button {
+    background-color: rgb(199, 234, 173);
+    width: 200px;
+    height: 24px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 14px;
+    line-height: 24px;
+    border-width: 0px;
+    border-radius: 1px;
+    /* box-shadow: 0px 2px #979797; */
+    position: absolute;
+    right: 2px;
+}
+
+.plan-button:hover {
+    opacity: 0.6;
+}
+
+/* .plan-button:active {
+    top: 2px;
+    right: 2px;
+    box-shadow: none;
+} */
+
+.plan-item-value {
+    text-align: right;
+}
+
+.add-plan-button {
+    margin-top: 4px;
+    height: 40%;
+    width: 100%;
+    border: 0px;
+    border-radius: 4px;
+    box-shadow: 0px 2px #979797;
+    cursor: pointer;
+}
+
+.add-plan-button:hover {
+    opacity: 0.6;
+}
+
+.add-plan-button:active {
+    position: relative;
+    top: 2px;
+    box-shadow: none;
+}
+
+/* plan-modal */
+.plan-modal-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 100;
+    display: none;
+}
+
+.modal {
+    position: absolute;
+    top: 10%;
+    left: 34%;
+    background-color: #e6ecf0;
+    padding: 20px 0 40px;
+    border-radius: 10px;
+    width: 450px;
+    height: 80%;
+    text-align: left;
+    overflow: auto;
+  }
+
+  .plan-radiobutton {
+      background-color: aqua;
+  }
+
+  .plan-image {
+      background-color: aqua;
+      width: 100%;
+      height: 200px;
+  }
+
+  .close-modal {
+    position: absolute;
+    top: 11%;
+    left: 35%;
+    height: 24px;
+    width: 16px;
+    background-image: url(../img/xmark-solid.svg);
+    background-size: cover;
+    cursor: pointer;
+  }
+

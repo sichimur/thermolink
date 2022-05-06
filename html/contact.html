@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <title>ThermoLink</title>
+        <link rel="stylesheet" href="../css/contact.css">
+        <script src="https://unpkg.com/vue@next"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    </head>
+    <body>
+      <header>
+          <div class="menu-list">
+            <a class="menu-item menu-measurement" href="../html/home.html">測定</a>
+            <a class="menu-item menu-plan" href="../html/plan.html">お申込プラン</a>
+            <a class="menu-item menu-device" href="../html/device.html">デバイス管理</a>
+            <a class="menu-item menu-alert" href="../html/alert.html">アラート設定</a>
+            <a class="menu-item menu-payment" href="../html/payment.html">お支払い情報</a>
+            <a class="menu-item menu-userinfo" href="../html/userinfo.html">ユーザ情報</a>
+            <a class="menu-item menu-contact" href="../html/contact.html">お問い合わせ</a>
+          </div>
+      </header>
+      <main>
+        <div class="contact-container">
+          <p class="contact-title-item">お問合せ内容</p>
+          <textarea class="contact-text" id="contact-text" type="text"></textarea>
+          <button class="send-button" onclick="confirmSending()">送信</button>
+          <p class="contact-annotation-text">回答はユーザ情報に登録されているメールアドレス宛に送信します。
+            <br>お問合せ内容によって回答までにお時間をいただく場合がございますので、あらかじめご了承ください。
+          </p>
+        </div>
+      </main>
+      <footer>
+
+      </footer>
+      <script>
+          function confirmSending() {
+            if(confirm('お問合せ内容を送信しますか？（確認）')) {
+              
+              // set parameters
+              
+              // var request = new XMLHttpRequest();
+              // request.open('PUT', contractBaseUrl);
+              // request.setRequestHeader("Content-Type", "application/json");
+              // var jsonObj = JSON.stringify(body);
+
+              // request.onload = () => {
+              //   alert('お申し込みありがとうございました。お申し込み内容はメニューの「お申込プラン」からご確認いただけます。');
+
+              //   var planContainer = document.getElementById('plan-container');
+
+              //   for(let n=0; n < numberOfPlan; n++) {
+              //     planContainer.removeChild(planContainer.lastChild);
+              //   }
+              //   read_contract();
+              //   closeModal();
+              // }
+              // request.send(jsonObj);
+            }
+          }
+      </script>
+    </body>
+</html>

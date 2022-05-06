@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <title>ThermoLink</title>
+        <link rel="stylesheet" href="../css/home.css">
+        <script src="https://unpkg.com/vue@next"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+        
+    </head>
+    <body>
+        <header>
+            <div class="menu-list">
+                <a class="menu-item menu-measurement" href="../html/home.html">測定</a>
+                <a class="menu-item menu-plan" href="../html/plan.html">お申込プラン</a>
+                <a class="menu-item menu-device" href="../html/device.html">デバイス管理</a>
+                <a class="menu-item menu-alert" href="../html/alert.html">アラート設定</a>
+                <a class="menu-item menu-payment" href="../html/payment.html">お支払い情報</a>
+                <a class="menu-item menu-userinfo" href="../html/userinfo.html">ユーザ情報</a>
+                <a class="menu-item menu-contact" href="../html/contact.html">お問い合わせ</a>
+            </div>
+        </header>
+        <main>
+            <div class="top-container">
+                <a class="csv" href="#">CSVダウンロード</a>
+                <a class="update" href="#" onclick="update_chart()"><img class="update-image" src="../img/rotate-right-solid.svg">更新</a>
+            </div>
+            <div class="graph-container" id="chart-container">
+                <!-- chart area -->
+            </div>
+        </main>
+        <footer>
+
+        </footer>
+        <script>
+            var contracts = [];
+            var temparature = [];
+            var numberOfChart = 0;
+            var chartID = [];
+            var userID = "usr-1234";
+            var contractData = [];
+            const baseUrl = "https://qa4fps3awk.execute-api.ap-northeast-1.amazonaws.com/items/usr-1234/ct-1001";
+            const contractBaseUrl = "https://i2lk5v5yvi.execute-api.ap-northeast-1.amazonaws.com/items/"
+
+            // initialize
+            init();
+
+            function init() {
+                read_contract();
+            }
+
+            function read_contract () {
+                var request = new XMLHttpRequest();
+                console.log(contractBaseUrl + userID);
+                request.open('GET', contractBaseUrl + userID);
+                request.onload = () => {
+                    var jsonObj = JSON.parse(request.responseText);
+                    // extract contract json object
+                    contractData = jsonObj.Items;
+                    console.log(contractData);
+                    // get number of all contract devices
+                    contractData.forEach((contract) => {
+                        numberOfChart += contract.device.length;
+                    });
+                    console.log(numberOfChart);
+                    create_chartComponet();
+                    read_chart();
+                }
+                request.send();
+            }
+
+            function create_chartComponet () {
+                var chartContainer = document.getElementById('chart-container');
+                for(let n = 0; n < numberOfChart; n++) {
+                    var chartComponent = document.createElement('div');
+                    chartComponent.setAttribute('class', 'graph-component');
+                    chartComponent.innerHTML = `
+                        <div class="gragh-item-container device-name">
+                            <p class="graph-item device-name-title">デバイス名</p>
+                            <p class="graph-item device-name-value">XXXX</p>
+                        </div>
+                        <div class="gragh-item-container upper-limit">
+                            <p class="graph-item upper-limit-title">上限</p>
+                            <p class="graph-item upper-limit-value">XXXX</p>
+                        </div>
+                        <div class="gragh-item-container lower-limit">
+                            <p class="graph-item lower-limit-title">下限</p>
+                            <p class="graph-item lower-limit-value">XXXX</p>
+                        </div>
+                        <div class="graph-item-chart">
+                            <canvas id="tempChart${n}" width="360" height="300"></canvas>    
+                        </div>
+                        `;
+                    chartID.push(`tempChart${n}`);
+                    chartContainer.appendChild(chartComponent);
+                }
+            }
+
+            function read_chart () {
+                var request = new XMLHttpRequest();
+                request.open('GET',baseUrl);
+                request.onload = () => {
+                    var jsonObj = JSON.parse(request.responseText);
+                    var dataArray = jsonObj.Item.data;
+                    temperature = dataArray[0].temparature;
+                    for (let n=0; n < numberOfChart; n++) {
+                        drawChart(chartID[n]);
+                        console.log(chartID[n]);
+                    }
+                };
+                request.send();                    
+
+            }            
+
+            function update_chart () {
+                var request = new XMLHttpRequest();
+                for(let n=0; n < numberOfChart; n++) {
+                    request.open('GET',baseUrl);
+                    request.onload = () => {
+                        var jsonObj = JSON.parse(request.responseText);
+                        var dataArray = jsonObj.Item.data;
+                        temperature = dataArray[0].temparature;
+                        if(myChart) {
+                            myChart.destroy();
+                        }
+                        drawChart(chartID[n]);
+                    };
+                    request.send();                    
+                }
+            }
+
+            function drawChart (id) {
+                const ctx = document.getElementById(id).getContext('2d');
+                window.myChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                        datasets: [{
+                            label: '温度',
+                            data: temperature,
+                            backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                            borderColor:'rgba(255, 159, 64, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            }
+        </script>
+    </body>
+</html>

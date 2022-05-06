@@ -1,0 +1,119 @@
+* {
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+p {
+  margin: 0;
+}
+
+/* header */
+header {
+  background-color: rgba(34, 49, 52, 0.9);
+  width: 160px;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+
+.menu-item {
+  display: block;
+  height: 80px;
+  width: 100%;
+  line-height: 80px;
+  color: white;
+  float: left;
+  text-decoration: none;
+  transition: all 0.5s;
+  text-align: center;
+}
+
+.menu-item:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.menu-alert {
+  font-weight: bold;
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* main */
+main {
+  background-color:white;
+  margin-left: 160px;
+  padding: 12px;
+}
+
+.alert-mail-container {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.notify-title-item {
+  display: inline-block;
+  width: 100%;
+  font-size: 14px;
+  font-weight: bold;
+  margin: 0px 0px 4px 0px;
+}
+
+.notify-mail-input {
+  height: 40px;
+  width: 100%;
+  font-size: 14px
+}
+
+.notify-mail-label {
+  display: inline-block;
+  font-size: 12px;
+}
+
+.notify-setting-component {
+  height: 200px;
+  background-color: #F6F6F6;
+  padding: 12px;
+  border-radius: 1px;
+}
+
+.notify-limit-title-item {
+  display: inline-block;
+  width: 100%;
+  font-size: 14px;
+  margin: 0px 0px 4px 0px;
+}
+
+.upper-limit-notify {
+  height: 50%;
+  width: 100%;
+}
+
+.lower-limit-notify {
+  height: 50%;
+  width: 100%;
+}
+
+.select-limit-notify {
+  font-size: 14px;
+}
+
+.save-button {
+  display: inline-block;
+  float: right;
+  height: 40px;
+  width: 160px;
+  text-align: center;
+  background-color: #00ff95;
+  border-radius: 2px;
+  line-height: 40px;
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+.save-button:hover {
+  opacity: 0.6;
+}

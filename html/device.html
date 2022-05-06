@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <title>ThermoLink</title>
+        <link rel="stylesheet" href="../css/device.css">
+        <script src="https://unpkg.com/vue@next"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    </head>
+    <body>
+        <header>
+            <div class="menu-list">
+              <a class="menu-item menu-measurement" href="../html/home.html">測定</a>
+              <a class="menu-item menu-plan" href="../html/plan.html">お申込プラン</a>
+              <a class="menu-item menu-device" href="../html/device.html">デバイス管理</a>
+              <a class="menu-item menu-alert" href="../html/alert.html">アラート設定</a>
+              <a class="menu-item menu-payment" href="../html/payment.html">お支払い情報</a>
+              <a class="menu-item menu-userinfo" href="../html/userinfo.html">ユーザ情報</a>
+              <a class="menu-item menu-contact" href="../html/contact.html">お問い合わせ</a>
+            </div>
+        </header>
+
+        <main>
+            <div class="top-container" id="top-container">
+              <div class="device-column-title">
+                <p class="device-column-item column-device-status">ステータス</p>
+                <p class="device-column-item column-device-id">ID</p>
+                <p class="device-column-item column-device-name">デバイス名</p>
+                <p class="device-column-item column-device-alert">アラート設定値</p>
+                <p class="device-column-item column-device-model">モデル</p>
+                <p class="device-column-item column-device-date">登録日</p>
+              </div>
+            </div>
+            <div class="device-wrapper">
+              <div class="device-container" id="device-container">
+                <!-- device area -->
+              </div>
+              <a class="save-button" href="#" onclick="">保存</a>
+            </div>
+            
+        </main>
+        <footer>
+
+        </footer>
+        <script>
+          var devices = [];
+          var temparature = [];
+          var numberOfDevices = 10;
+          var userID = "usr-1234";
+
+          // initialize
+          init();
+
+          function init() {
+            create_deviceComponet();
+          }
+
+          function create_deviceComponet () {
+              var deviceContainer = document.getElementById('device-container');
+              for(let n = 0; n < numberOfDevices; n++) {
+                  var deviceComponent = document.createElement('div');
+                  deviceComponent.setAttribute('class', 'device-component');
+                  deviceComponent.innerHTML = `
+                    <div class="device-component-item green-led"></div>
+                    <p class="device-component-item device-id">dv3246d</p>
+                    <input class="device-component-item device-name" id="device-name-1" placeholder="任意の名称（例.リビングルーム温度)">
+                    <p class="device-component-item column-upper-limit">上限</p>
+                    <input type="number" class="device-component-item upper-limit" placeholder="温度">
+                    <p class="device-component-item column-lower-limit">下限</p>
+                    <input type="number" class="device-component-item lower-limit" placeholder="温度">
+                    <p class="device-component-item device-model">rx001</p>
+                    <p class="device-component-item device-date">2022-1-23</p>
+                  `;
+                  deviceContainer.appendChild(deviceComponent);
+              }
+          }
+        </script>
+    </body>
+</html>

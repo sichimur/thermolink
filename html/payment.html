@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <title>ThermoLink</title>
+        <link rel="stylesheet" href="../css/payment.css">
+        <script src="https://unpkg.com/vue@next"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    </head>
+    <body>
+        <header>
+            <div class="menu-list">
+              <a class="menu-item menu-measurement" href="../html/home.html">測定</a>
+              <a class="menu-item menu-plan" href="../html/plan.html">お申込プラン</a>
+              <a class="menu-item menu-device" href="../html/device.html">デバイス管理</a>
+              <a class="menu-item menu-alert" href="../html/alert.html">アラート設定</a>
+              <a class="menu-item menu-payment" href="../html/payment.html">お支払い情報</a>
+              <a class="menu-item menu-userinfo" href="../html/userinfo.html">ユーザ情報</a>
+              <a class="menu-item menu-contact" href="../html/contact.html">お問い合わせ</a>
+            </div>
+        </header>
+        <main>
+          <div class="payment-setting-container">
+            <p class="payment-title-item">お支払い方法</p>
+            <div class="payment-setting-component">
+              <!-- payment -->
+            </div>
+            
+          </div>
+          <div class="payment-history-container" id="payment-history-container">
+            <p class="payment-title-item">お支払い履歴（直近３ヶ月分）</p>
+            <div class="payment-history-wrapper">
+              <ul class="payment-history-list">
+                <li class="payment-history-component">
+                  <div class="payment-summary">
+                    <p class="payment-date">2022-1-24</p>
+                    <p class="payment-price">¥5500</p>
+                    <span class="payment-open">+</span>
+                  </div>
+                  <div class="payment-detail">
+                    <p class="payment-detail-title">ご契約内容（XXXXXX）</p>
+                    <div class="payment-detail-contract">
+                      <div class="payment-detail-item">
+                        <p class="payment-detail-item-title">サービス使用料</p>
+                        <p class="payment-detail-item-price">¥5000</p>
+                      </div>
+                      <div class="payment-detail-item">
+                        <p class="payment-detail-item-title">発送料・返送料</p>
+                        <p class="payment-detail-item-price">¥1000</p>
+                      </div>                     
+                    </div>
+                  </div>
+                </li>
+                <li class="payment-history-component">
+                  <div class="payment-summary">
+                    <p class="payment-date">2022-1-24</p>
+                    <p class="payment-price">¥5000</p>
+                    <span class="payment-open">+</span>
+                  </div>
+                  <div class="payment-detail">
+                    <p class="payment-detail-title">ご契約内容（XXXXXX）</p>
+                    <div class="payment-detail-contract">
+                      <div class="payment-detail-item">
+                        <p class="payment-detail-item-title">サービス使用料</p>
+                        <p class="payment-detail-item-price">¥5000</p>
+                      </div>                
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </main>
+        <footer>
+
+        </footer>
+        <script>
+          $(function () {
+            $('.payment-history-component').click(function () {
+            var $detail = $(this).find('.payment-detail');
+            if($detail.hasClass('open')) {
+              $detail.removeClass('open');
+              $detail.slideUp();
+              $(this).children('span').text('+');
+            } else {
+              $detail.addClass('open');
+              $detail.slideDown();
+              $(this).children('span').text('-');
+            }
+            });
+          });
+        </script>
+    </body>
+</html>
